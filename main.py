@@ -49,9 +49,14 @@ def handle_new_members(message):
     Thread(target=delete_welcome_message, args=(message,)).start()
 
 ###############################################################################################
-@bot.message_handler(commands=['init'])
+@bot.message_handler(commands=['start'])
 def start(message):
     bot.reply_to(message, '¡Hola! Soy Niki bot estaré escuchando todas tus peticiones.')
+    try:
+        bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
+        print(f"Mensaje de comando /start de {message.from_user.username} eliminado.")
+    except Exception as e:
+        print(f"No se pudo eliminar el mensaje de comando /start: {e}")
 
 ###############################################################################################
 @bot.message_handler(func=lambda message: URL.search(message.text) is not None)
