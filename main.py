@@ -51,7 +51,6 @@ def handle_new_members(message):
 ###############################################################################################
 @bot.message_handler(commands=['start'])
 def start(message):
-    bot.reply_to(message, '¡Hola! Soy Niki bot estaré escuchando todas tus peticiones.')
     try:
         bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
         print(f"Mensaje de comando /start de {message.from_user.username} eliminado.")
