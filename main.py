@@ -42,6 +42,13 @@ def delete_welcome_message(message):
         except Exception as e:
             print(f"No se pudo eliminar el mensaje de bienvenida: {e}")
 
+def ban_user(chat_id, user_id):
+    try:
+        bot.kick_chat_member(chat_id, user_id)
+        print(f"Usuario {user_id} baneado del chat {chat_id}.")
+    except Exception as e:
+        print(f"No se pudo banear al usuario {user_id}: {e}")
+
 ###############################################################################################
 ############################- FUNCIONES DE ESCUCHA -############################################
 @bot.message_handler(content_types=['new_chat_members'])
@@ -65,8 +72,9 @@ def handle_message_with_urls(message):
             bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
             print(f"Mensaje con URL de {message.from_user.username} eliminado.")
             bot.send_message(chat_id=message.chat.id, text=f"@{message.from_user.username} baneado, no está permitido enviar enlaces, niki los castigara si continuan.")
+            ban_user(message.chat.id, message.from_user.id)
         except Exception as e:
-            print(f'{e} Error al borrar el mensaje')
+            print(f'{e} Error al borrar el mensaje o banear al usuario')
 
 def start_bot_polling():
     while True:
