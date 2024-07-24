@@ -17,9 +17,8 @@ if API_KEY is None:
 
 bot = telebot.TeleBot(API_KEY)
 
-# Expresión regular
 URL = re.compile(
-    r'((http[s]?://)?(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+\.[a-zA-Z]{2,})'
+    r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 )
 
 
@@ -39,7 +38,6 @@ def delete_welcome_message(message):
     for member in message.new_chat_members:
         try:
             bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
-            print(f"Mensaje de bienvenida de {member.username} eliminado.")
         except Exception as e:
             print(f"No se pudo eliminar el mensaje de bienvenida: {e}")
 
