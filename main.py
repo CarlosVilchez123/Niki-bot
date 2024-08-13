@@ -20,7 +20,7 @@ bot = telebot.TeleBot(API_KEY)
 
 # Expresión regular
 URL = re.compile(
-    r'\b(https?:\/\/)?[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)+\.[a-zA-Z]{2,}\b'
+    r'(?<!\.)\b(https?:\/\/)?[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*\.[a-zA-Z]{2,}\b'
 )
 
 def is_user_admin(chat_id, user_id):
