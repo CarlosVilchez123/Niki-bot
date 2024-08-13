@@ -20,7 +20,7 @@ bot = telebot.TeleBot(API_KEY)
 
 # Expresión regular
 URL = re.compile(
-    r'((http[s]?://)?(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+\.[a-zA-Z]{2,})'
+    r'\b((http[s]?://)?[a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*\.[a-zA-Z]{2,})\b'
 )
 
 def is_user_admin(chat_id, user_id):
@@ -117,7 +117,7 @@ def handle_message_with_urls(message):
         try:
             bot.delete_message(chat_id=message.chat.id, message_id=message.message_id)
             print(f"Mensaje con URL de {message.from_user.username} eliminado.")
-            bot.send_message(chat_id=message.chat.id, text=f"@{message.from_user.username} baneado, no está permitido enviar enlaces, niki los castigara si continuan.")
+            bot.send_message(chat_id=message.chat.id, text=f"@{message.from_user.username} no se permite enviar enlaces, cuidadito eh!!")
             ban_user(message.chat.id, message.from_user.username)
         except Exception as e:
             print(f'{e} Error al borrar el mensaje o banear al usuario')
